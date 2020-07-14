@@ -4,9 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
 
 @SpringBootApplication
+@ConfigurationPropertiesScan("com.altevie.demo")
 public class SmartWorkingApplication {
 
 	private static final Logger logger = LoggerFactory.getLogger(SmartWorkingApplication.class);

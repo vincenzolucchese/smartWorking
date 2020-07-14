@@ -10,10 +10,10 @@ import java.util.HashMap;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.annotation.XmlElement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import it.gov.mlps.datamodels.informationdelivery.smartworking.AnnullaComunicazioneInput;
@@ -27,17 +27,13 @@ import it.gov.mlps.datamodels.informationdelivery.smartworking.SezioneRapportoLa
 import it.gov.mlps.datamodels.informationdelivery.smartworking.SezioneRapportoLavoroModifica;
 import it.gov.mlps.datamodels.informationdelivery.smartworking.SezioneSoggettoAbilitatoInput;
 
+@Component
 public class StepManager {
 	
 	private static final Logger logger = LoggerFactory.getLogger(StepManager.class);
 	
-	private static final String FILEPATH = "./sourceFile/comunicazione.xlsx";
+	private String outputPath ;
 	
-	private static final String CREATE_OUTPUT_PATH = "/crea";
-	private static final String MODIFY_OUTPUT_PATH = "/modifica";
-	private static final String ABORT_OUTPUT_PATH = "/annulla";
-	
-	private String pathRelative = "./output";
     private JAXBContext contextCrea;
     private JAXBContext contextModifica;
     private JAXBContext contextAnnulla;
@@ -69,22 +65,23 @@ public class StepManager {
 		Date timestamp = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 		String format = formatter.format(timestamp);
-		pathRelative = pathRelative + "_" + format; 
+		outputPath = ConfigPropertiesSmart.outputPath;
+		outputPath = outputPath + "_" + format; 
 		
-		File f = new File(pathRelative);
-		logger.info("Check exists output folders:"+ pathRelative); 
+		File f = new File(outputPath);
+		logger.info("Check exists output folders:"+ outputPath); 
 		if(!f.exists()) { 
 			f.mkdir();
 		}
 		
 		if(!CollectionUtils.isEmpty(creaList)) {
-			f = new File(pathRelative+CREATE_OUTPUT_PATH);
-			logger.info("Check exists output folders:"+ pathRelative+CREATE_OUTPUT_PATH); 
+			f = new File(outputPath+ConfigPropertiesSmart.invioPath);
+			logger.info("Check exists output folders:"+ outputPath+ConfigPropertiesSmart.invioPath); 
 			if(!f.exists()) { 
 				f.mkdir();
 			}
 			creaList.forEach((key, value) -> {
-				File fi = new File(pathRelative+CREATE_OUTPUT_PATH + "/" + key);
+				File fi = new File(outputPath+ConfigPropertiesSmart.invioPath + "/" + key);
 				if(!fi.exists()) { 
 					fi.mkdir();
 				}
@@ -92,13 +89,13 @@ public class StepManager {
 		}
 		
 		if(!CollectionUtils.isEmpty(annullaList)) {
-			f = new File(pathRelative+ABORT_OUTPUT_PATH);
-			logger.info("Check exists output folders:"+ pathRelative+ABORT_OUTPUT_PATH); 
+			f = new File(outputPath+ConfigPropertiesSmart.annullaPath);
+			logger.info("Check exists output folders:"+ outputPath+ConfigPropertiesSmart.annullaPath); 
 			if(!f.exists()) { 
 				f.mkdir();
 			}
 			annullaList.forEach((key, value) -> {
-				File fi = new File(pathRelative+ABORT_OUTPUT_PATH + "/" + key);
+				File fi = new File(outputPath+ConfigPropertiesSmart.annullaPath + "/" + key);
 				if(!fi.exists()) { 
 					fi.mkdir();
 				}
@@ -106,13 +103,13 @@ public class StepManager {
 		}
 		
 		if(!CollectionUtils.isEmpty(modificaList)) {
-			f = new File(pathRelative+MODIFY_OUTPUT_PATH);
-			logger.info("Check exists output folders:"+ pathRelative+MODIFY_OUTPUT_PATH); 
+			f = new File(outputPath+ConfigPropertiesSmart.modificaPath);
+			logger.info("Check exists output folders:"+ outputPath+ConfigPropertiesSmart.modificaPath); 
 			if(!f.exists()) { 
 				f.mkdir();
 			}
 			modificaList.forEach((key, value) -> {
-				File fi = new File(pathRelative+MODIFY_OUTPUT_PATH + "/" + key);
+				File fi = new File(outputPath+ConfigPropertiesSmart.modificaPath + "/" + key);
 				if(!fi.exists()) { 
 					fi.mkdir();
 				}
@@ -122,10 +119,10 @@ public class StepManager {
 	}
 	
 	public void checkFile() {
-		File f = new File(FILEPATH);
-		logger.info("Check exists file:"+ FILEPATH); 
+		File f = new File(ConfigPropertiesSmart.sourceFile);
+		logger.info("Check exists file:"+ ConfigPropertiesSmart.sourceFile); 
 		if(!(f.exists() && !f.isDirectory())) { 
-			logger.info("Please check file in :"+ FILEPATH);
+			logger.info("Please check file in :"+ ConfigPropertiesSmart.sourceFile);
 			isContinue=false;
 		}
 	}
@@ -152,7 +149,7 @@ public class StepManager {
 				try {
 					for (CreaComunicazioneInput each : value) {
 						marshallerCrea.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-						marshallerCrea.marshal(each, new File(pathRelative+CREATE_OUTPUT_PATH + "/" + key + "/" + key 
+						marshallerCrea.marshal(each, new File(outputPath+ConfigPropertiesSmart.invioPath + "/" + key + "/" + key 
 								+ "-" + each.getSezioneLavoratore().getCodiceFiscaleLavoratore() + ".xml"));
 					}
 				} catch (Exception e) {
@@ -169,8 +166,8 @@ public class StepManager {
 				try {
 					for (AnnullaComunicazioneInput each : value) {
 						marshallerAnnulla.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-						marshallerAnnulla.marshal(each, new File(pathRelative+ABORT_OUTPUT_PATH + "/" + key + "/" + key 
-				        		+ "-" + each.getCodiceComunicazione() + ".xml"));
+						marshallerAnnulla.marshal(each, new File(outputPath+ConfigPropertiesSmart.annullaPath + "/" + key + "/" 
+						+ each.getCodiceComunicazione() + ".xml"));
 					}
 				} catch (Exception e) {
 					logger.error("ERROR: ", e);
@@ -185,8 +182,8 @@ public class StepManager {
 				try {
 					for (ModificaComunicazioneInput each : value) {
 						marshallerModifica.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-						marshallerModifica.marshal(each, new File(pathRelative+MODIFY_OUTPUT_PATH + "/" + key + "/" + key 
-				        		+ "-" + each.getCodiceComunicazione() + ".xml"));
+						marshallerModifica.marshal(each, new File(outputPath+ConfigPropertiesSmart.modificaPath + "/" + key + "/" 
+						+ each.getCodiceComunicazione() + ".xml"));
 					}
 				} catch (Exception e) {
 					logger.error("ERROR: ", e);
@@ -281,8 +278,6 @@ public class StepManager {
 	private void tempAddAnnulla(String comunicazione) {
 		AnnullaComunicazioneInput annulla = new AnnullaComunicazioneInput();
 		
-	    SezioneRapportoLavoroModifica rapporto = new SezioneRapportoLavoroModifica();
-	    SezioneAccordoSmartWorkingInput smart = new SezioneAccordoSmartWorkingInput();
 	    SezioneSoggettoAbilitatoInput abilitato = new SezioneSoggettoAbilitatoInput();	     
 	    
 	    annulla.setCodTipologiaComunicazione("A");
