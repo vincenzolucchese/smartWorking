@@ -1,5 +1,5 @@
 
-package it.gov.mlps.datamodels.informationdelivery.smartworking;
+package it.gov.mlps.datamodels.informationdelivery.smartworking._1;
 
 import java.io.Serializable;
 import java.util.Calendar;

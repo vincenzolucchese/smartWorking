@@ -1,5 +1,5 @@
 
-package it.gov.mlps.datamodels.informationdelivery.smartworking;
+package it.gov.mlps.datamodels.informationdelivery.smartworking._1;
 
 import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -10,18 +10,19 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for ModificaComunicazione_Input complex type.
+ * <p>Java class for CreaComunicazione_Input complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ModificaComunicazione_Input"&gt;
+ * &lt;complexType name="CreaComunicazione_Input"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="CodiceComunicazione" type="{http://mlps.gov.it/DataModels/InformationDelivery/SmartWorking/1.0}CodiceComunicazione"/&gt;
- *         &lt;element name="SezioneRapportoLavoro" type="{http://mlps.gov.it/DataModels/InformationDelivery/SmartWorking/1.0}SezioneRapportoLavoro_Modifica"/&gt;
- *         &lt;element name="SezioneAccordoSmartWorking" type="{http://mlps.gov.it/DataModels/InformationDelivery/SmartWorking/1.0}SezioneAccordoSmartWorking_Input"/&gt;
+ *         &lt;element name="SezioneDatoreLavoro" type="{http://mlps.gov.it/DataModels/InformationDelivery/SmartWorking/1.0}SezioneDatoreLavoro"/&gt;
+ *         &lt;element name="SezioneLavoratore" type="{http://mlps.gov.it/DataModels/InformationDelivery/SmartWorking/1.0}SezioneLavoratore"/&gt;
+ *         &lt;element name="SezioneRapportoLavoro" type="{http://mlps.gov.it/DataModels/InformationDelivery/SmartWorking/1.0}SezioneRapportoLavoro_Crea"/&gt;
+ *         &lt;element name="SezioneAccordoSmartWorking" type="{http://mlps.gov.it/DataModels/InformationDelivery/SmartWorking/1.0}SezioneAccordoSmartWorking"/&gt;
  *         &lt;element name="SezioneSoggettoAbilitato" type="{http://mlps.gov.it/DataModels/InformationDelivery/SmartWorking/1.0}SezioneSoggettoAbilitato_Input" minOccurs="0"/&gt;
  *         &lt;element name="CodTipologiaComunicazione" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
@@ -33,52 +34,79 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ModificaComunicazione_Input", propOrder = {
-    "codiceComunicazione",
+@XmlType(name = "CreaComunicazione_Input", propOrder = {
+    "sezioneDatoreLavoro",
+    "sezioneLavoratore",
     "sezioneRapportoLavoro",
     "sezioneAccordoSmartWorking",
     "sezioneSoggettoAbilitato",
     "codTipologiaComunicazione"
 })
-@XmlRootElement(name = "ModificaComunicazione_Input")
-public class ModificaComunicazioneInput
+@XmlRootElement(name = "CreaComunicazione_Input")
+public class CreaComunicazioneInput
     implements Serializable
 {
 
     private final static long serialVersionUID = -1L;
-    @XmlElement(name = "CodiceComunicazione", required = true)
-    protected String codiceComunicazione;
+    @XmlElement(name = "SezioneDatoreLavoro", required = true)
+    protected SezioneDatoreLavoro sezioneDatoreLavoro;
+    @XmlElement(name = "SezioneLavoratore", required = true)
+    protected SezioneLavoratore sezioneLavoratore;
     @XmlElement(name = "SezioneRapportoLavoro", required = true)
-    protected SezioneRapportoLavoroModifica sezioneRapportoLavoro;
+    protected SezioneRapportoLavoroCrea sezioneRapportoLavoro;
     @XmlElement(name = "SezioneAccordoSmartWorking", required = true)
-    protected SezioneAccordoSmartWorkingInput sezioneAccordoSmartWorking;
+    protected SezioneAccordoSmartWorking sezioneAccordoSmartWorking;
     @XmlElement(name = "SezioneSoggettoAbilitato")
     protected SezioneSoggettoAbilitatoInput sezioneSoggettoAbilitato;
     @XmlElement(name = "CodTipologiaComunicazione", required = true)
     protected String codTipologiaComunicazione;
 
     /**
-     * Gets the value of the codiceComunicazione property.
+     * Gets the value of the sezioneDatoreLavoro property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link SezioneDatoreLavoro }
      *     
      */
-    public String getCodiceComunicazione() {
-        return codiceComunicazione;
+    public SezioneDatoreLavoro getSezioneDatoreLavoro() {
+        return sezioneDatoreLavoro;
     }
 
     /**
-     * Sets the value of the codiceComunicazione property.
+     * Sets the value of the sezioneDatoreLavoro property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link SezioneDatoreLavoro }
      *     
      */
-    public void setCodiceComunicazione(String value) {
-        this.codiceComunicazione = value;
+    public void setSezioneDatoreLavoro(SezioneDatoreLavoro value) {
+        this.sezioneDatoreLavoro = value;
+    }
+
+    /**
+     * Gets the value of the sezioneLavoratore property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link SezioneLavoratore }
+     *     
+     */
+    public SezioneLavoratore getSezioneLavoratore() {
+        return sezioneLavoratore;
+    }
+
+    /**
+     * Sets the value of the sezioneLavoratore property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link SezioneLavoratore }
+     *     
+     */
+    public void setSezioneLavoratore(SezioneLavoratore value) {
+        this.sezioneLavoratore = value;
     }
 
     /**
@@ -86,10 +114,10 @@ public class ModificaComunicazioneInput
      * 
      * @return
      *     possible object is
-     *     {@link SezioneRapportoLavoroModifica }
+     *     {@link SezioneRapportoLavoroCrea }
      *     
      */
-    public SezioneRapportoLavoroModifica getSezioneRapportoLavoro() {
+    public SezioneRapportoLavoroCrea getSezioneRapportoLavoro() {
         return sezioneRapportoLavoro;
     }
 
@@ -98,10 +126,10 @@ public class ModificaComunicazioneInput
      * 
      * @param value
      *     allowed object is
-     *     {@link SezioneRapportoLavoroModifica }
+     *     {@link SezioneRapportoLavoroCrea }
      *     
      */
-    public void setSezioneRapportoLavoro(SezioneRapportoLavoroModifica value) {
+    public void setSezioneRapportoLavoro(SezioneRapportoLavoroCrea value) {
         this.sezioneRapportoLavoro = value;
     }
 
@@ -110,10 +138,10 @@ public class ModificaComunicazioneInput
      * 
      * @return
      *     possible object is
-     *     {@link SezioneAccordoSmartWorkingInput }
+     *     {@link SezioneAccordoSmartWorking }
      *     
      */
-    public SezioneAccordoSmartWorkingInput getSezioneAccordoSmartWorking() {
+    public SezioneAccordoSmartWorking getSezioneAccordoSmartWorking() {
         return sezioneAccordoSmartWorking;
     }
 
@@ -122,10 +150,10 @@ public class ModificaComunicazioneInput
      * 
      * @param value
      *     allowed object is
-     *     {@link SezioneAccordoSmartWorkingInput }
+     *     {@link SezioneAccordoSmartWorking }
      *     
      */
-    public void setSezioneAccordoSmartWorking(SezioneAccordoSmartWorkingInput value) {
+    public void setSezioneAccordoSmartWorking(SezioneAccordoSmartWorking value) {
         this.sezioneAccordoSmartWorking = value;
     }
 
