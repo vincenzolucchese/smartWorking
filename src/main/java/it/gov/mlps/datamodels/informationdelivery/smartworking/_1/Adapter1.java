@@ -1,9 +1,8 @@
 
-package org.w3._2001.xmlschema;
+package it.gov.mlps.datamodels.informationdelivery.smartworking._1;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.TimeZone;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
