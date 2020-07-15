@@ -16,7 +16,9 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		        <!-- maven plugins -->
+		<openncsv-version>5.2</openncsv-version>
+<!-- 		<apache-poi-version>4.1.2</apache-poi-version> -->
+		<!-- maven plugins -->
         <jaxb2-maven-plugin.version>2.3</jaxb2-maven-plugin.version>
         <lifecycle-mapping-plugin.version>1.0.0</lifecycle-mapping-plugin.version>
 	</properties>
@@ -43,6 +45,13 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>com.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>${openncsv-version}</version>
+		</dependency>
+
+				
 	</dependencies>
 
 	<build>

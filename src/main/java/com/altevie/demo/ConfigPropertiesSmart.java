@@ -10,6 +10,7 @@ public class ConfigPropertiesSmart {
 	static String modificaPath;
 	static String annullaPath;
 	static String sourceFile;
+	static String delimeterCsv;
 	
 	public String getOutputPath() {
 		return outputPath;
@@ -39,7 +40,13 @@ public class ConfigPropertiesSmart {
 		return sourceFile;
 	}
 	public void setSourceFile(String sourceFile) {
-		ConfigPropertiesSmart.sourceFile = sourceFile;
+		this.sourceFile = sourceFile;
+	}
+	public String getDelimeterCsv() {
+		return delimeterCsv;
+	}
+	public void setDelimeterCsv(String delimeterCsv) {
+		this.delimeterCsv = delimeterCsv;
 	}
 
 	
