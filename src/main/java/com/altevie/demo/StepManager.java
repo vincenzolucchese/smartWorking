@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
@@ -194,9 +195,11 @@ public class StepManager {
 	    annulla.setCodTipologiaComunicazione(line[16]);
 	    annulla.setCodiceComunicazione(line[18]);
 	    
-	    annulla.setSezioneSoggettoAbilitato(abilitato);	
-		annulla.getSezioneSoggettoAbilitato().setCodTipologiaSoggettoAbilitato(line[20]);
-		annulla.getSezioneSoggettoAbilitato().setCodiceFiscaleSoggettoAbilitato(line[21]);
+	    if(!StringUtils.isEmpty(line[20]) && !StringUtils.isEmpty(line[21])) {
+		    annulla.setSezioneSoggettoAbilitato(abilitato);	
+			annulla.getSezioneSoggettoAbilitato().setCodTipologiaSoggettoAbilitato(line[20]);
+			annulla.getSezioneSoggettoAbilitato().setCodiceFiscaleSoggettoAbilitato(line[21]);
+	    }
 		
 		if(annullaList.get(line[18])!=null){
 			annullaList.get(line[18]).add(annulla);
@@ -229,9 +232,11 @@ public class StepManager {
 		
 		modifica.setCodiceComunicazione(line[18]);
 		
-		modifica.setSezioneSoggettoAbilitato(abilitato);
-		modifica.getSezioneSoggettoAbilitato().setCodTipologiaSoggettoAbilitato(line[20]);
-		modifica.getSezioneSoggettoAbilitato().setCodiceFiscaleSoggettoAbilitato(line[21]);
+	    if(!StringUtils.isEmpty(line[20]) && !StringUtils.isEmpty(line[21])) {
+			modifica.setSezioneSoggettoAbilitato(abilitato);
+			modifica.getSezioneSoggettoAbilitato().setCodTipologiaSoggettoAbilitato(line[20]);
+			modifica.getSezioneSoggettoAbilitato().setCodiceFiscaleSoggettoAbilitato(line[21]);
+	    }
 		
 		if(modificaList.get(line[18])!=null){
 			modificaList.get(line[18]).add(modifica);
@@ -277,9 +282,11 @@ public class StepManager {
 		
 		invio.setCodTipologiaComunicazione(line[16]);
 		
-		invio.setSezioneSoggettoAbilitato(abilitato);
-		invio.getSezioneSoggettoAbilitato().setCodTipologiaSoggettoAbilitato(line[20]);
-		invio.getSezioneSoggettoAbilitato().setCodiceFiscaleSoggettoAbilitato(line[21]);
+	    if(!StringUtils.isEmpty(line[20]) && !StringUtils.isEmpty(line[21])) {
+			invio.setSezioneSoggettoAbilitato(abilitato);
+			invio.getSezioneSoggettoAbilitato().setCodTipologiaSoggettoAbilitato(line[20]);
+			invio.getSezioneSoggettoAbilitato().setCodiceFiscaleSoggettoAbilitato(line[21]);
+	    }
 		
 		if(creaList.get(line[0])!=null){
 			creaList.get(line[0]).add(invio);
