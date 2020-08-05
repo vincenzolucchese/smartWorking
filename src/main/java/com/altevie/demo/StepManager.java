@@ -18,6 +18,7 @@ import javax.xml.bind.Marshaller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -44,6 +45,9 @@ public class StepManager {
 	
 	private static final Logger logger = LoggerFactory.getLogger(StepManager.class);
 	
+	@Autowired
+	private ConfigPropertiesSmart props;
+	
 	private static final String FORMAT_DATE_CSV = "dd/MM/yyyy";
 	
 	private String outputPath ;	
@@ -58,6 +62,7 @@ public class StepManager {
 	
 	public void doSteps() {		
 		
+		logger.info(""+props);
 		checkFile();
 		if(isContinue) {
 			try {
@@ -279,6 +284,7 @@ public class StepManager {
 		//manca durata periodo in mesi line[11]
 		invio.getSezioneAccordoSmartWorking().setDataInizioPeriodo(getCalendarByCsv(line[14]));
 		invio.getSezioneAccordoSmartWorking().setDataFinePeriodo(getCalendarByCsv(line[15]));
+		invio.getSezioneAccordoSmartWorking().setStreamPDF(new byte[0]);
 		
 		invio.setCodTipologiaComunicazione(line[16]);
 		
@@ -362,6 +368,14 @@ public class StepManager {
 			logger.error("Cannot convert string date : " + valueString);
 		}
 		return cal;
+	}
+
+	public ConfigPropertiesSmart getProps() {
+		return props;
+	}
+
+	public void setProps(ConfigPropertiesSmart props) {
+		this.props = props;
 	}
 
 	
